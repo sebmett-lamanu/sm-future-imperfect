@@ -1,0 +1,8 @@
+<!-- About -->
+<section class="blurb">
+    <h2>{{ __('À propos', 'smfi') }}</h2>
+    <p>{{crb_about_text}}</p>
+    {% if crb_about_link.url is not empty %}
+    <a href="{{crb_about_link.url}}" class="button">{{crb_about_link.anchor}}</a>
+    {% endif %}
+</section>

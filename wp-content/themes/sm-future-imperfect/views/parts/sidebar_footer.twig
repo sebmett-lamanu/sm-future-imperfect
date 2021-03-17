@@ -1,0 +1,31 @@
+<!-- Footer -->
+<section id="footer">
+    <ul class="icons">
+        {% if facebook_url.url is not empty %}
+        <li>
+            <a class="icon brands fa-facebook" href="{{facebook_url.url}}">
+                <span class="label">{{facebook_url.anchor}}</span>
+            </a>
+        </li>
+        {% endif %}
+        {% if twitter_url.url is not empty %}
+        <li>
+            <a class="icon brands fa-twitter" href="{{twitter_url.url}}">
+                <span class="label">{{twitter_url.anchor}}</span>
+            </a>
+        </li>
+        {% endif %}
+        {% if instagram_url.url is not empty %}
+        <li>
+            <a class="icon brands fa-instagram" href="{{instagram_url.url}}">
+                <span class="label">{{instagram_url.anchor}}</span>
+            </a>
+        </li>
+        {% endif %}
+        <li><a href="{{site.rss}}" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
+        <li><a href="mailto:{{ function('antispambot', 'site.admin_email') }}" class="icon solid fa-envelope"><span
+                    class="label">Email</span></a></li>
+    </ul>
+    <p class="copyright">&copy; {{site.theme.name}}. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
+
+</section>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="{{site.language}}">
+
+<head>
+    <meta charset="{{site.charset}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{wp_title}}</title>
+    {{ function('wp_head') }}
+</head>
+{# Le block custom_body_class permettra d'assigner des classes supplémentaires si nécessaire #}
+
+<body class="{{body_class}} {% block custom_body_class %}{% endblock %}">
+    {{wp_body_open}}
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <h1><a href="{{site.url}}" title="{{ __('Retour à l\'accueil', 'smfi') }}">{{site.title}}</a></h1>
+            <nav class="links">
+                <ul>
+                    {% for item in primary_menu.items %}
+                    <li class="nav-main-item {{ item.classes|join(' ') }}">
+                        <a class="nav-main-link" href="{{ item.link }}">{{ item.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            <nav class="main">
+                <ul>
+                    <li class="search">
+                        <a class="fa-search" href="#search">Search</a>
+                        <form id="search" method="get" action="#">
+                            <input type="text" name="query" placeholder="Search" />
+                        </form>
+                    </li>
+                    <li class="menu">
+                        <a class="fa-bars" href="#menu">Menu</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        {% include "parts/menu.twig" %}
+
+
+        <div id="main">
+            {% block page_title %}{% endblock %}
+
+            {% block main %}
+
+            <!-- Post -->
+            {% for post in posts %}
+            <article class="post post-{{ post.id }}">
+                <header>
+                    <div class="title">
+                        <h2><a href="{{ post.link }}" title="{{ __('Lire la suite', 'smfi')}}">{{post.title}}</a></h2>
+                        <p>{{ post.meta('_crb_post_subtitle') }}</p>
+                    </div>
+                    <div class="meta">
+                        <time class="published" datetime="{{post.post_date | date('Y-m-d')}}">{{ post.post_date |
+                            date('j F Y') }}</time>
+                        <a href="{{post.author.link}}" class="author">
+                            <span class="name">{{post.author}}</span><img src="{{post.author.avatar}}"
+                                alt="{{post.author}}" />
+                        </a>
+                    </div>
+                </header>
+                {% if post.thumbnail %}
+                <a href="{{ post.link }}" class="image featured">
+                    <img src="{{ post.thumbnail.src(medium) }}" alt="" />
+                </a>
+                {% endif %}
+                <div class="post-content">{{post.preview}}</div>
+                <footer>
+                    <ul class="actions">
+                        <li>
+                            <a href="{{ post.link }}" class="button large">{{ __('Lire la suite', 'smfi')}}</a>
+                        </li>
+                    </ul>
+                    <ul class="stats">
+                        {% for term in post.terms %}
+                        <li>
+                            <a href="{{term.link}}">{{ term.name | excerpt(30) }}</a>
+                        </li>
+                        {% endfor %}
+                        <li><a href="#" data-postid="{{post.id}}" class="icon solid fa-heart fimp_like">{{ post.meta('_crb_post_likes') ? post.meta('_crb_post_likes') : 0 }}</a></li>
+                        <li><a href="{{ post.link }}#comments" class="icon solid fa-comment">{{ post.comment_count }}</a></li>
+                    </ul>
+                </footer>
+            </article>
+            {% endfor %}
+
+            {% block paginate %}
+            <!-- Pagination -->
+            <ul class="actions pagination">
+                <li>
+                    <a href="{{posts.pagination.prev.link}}" class="button large previous {{posts.pagination.prev.link|length ? '' : 'disabled'}}">
+                    {{ __('Articles précédents', 'smfi')}}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{posts.pagination.next.link}}" class="button large next {{posts.pagination.next.link|length ? '' : 'disabled'}}">
+                    {{ __('Articles suivants', 'smfi')}}
+                    </a>
+                </li>
+            </ul>
+            {% endblock %}
+
+            {% endblock %}
+        </div>
+        {% block sidebar %}
+        <section id="sidebar">
+
+            <!-- Intro -->
+            {% include 'parts/sidebar_intro.twig' %}
+
+            <!-- Mini Posts -->
+            {% include 'parts/sidebar_miniposts.twig' %}
+
+            <!-- Posts List -->
+            {% include 'parts/sidebar_listofposts.twig' %}
+
+            <!-- About -->
+            {% include 'parts/sidebar_blurb.twig' %}
+
+            <!-- Footer -->
+            {% include 'parts/sidebar_footer.twig' %}
+
+        </section>
+        {% endblock %}
+
+    </div>
+
+    {{ function('wp_footer') }}
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!-- Mini Posts -->
+<section>
+  <ul class="posts listofposts">
+    <!-- Mini Post -->
+    {% for post in crb_miniposts %}
+      <li>
+        <article>
+          <header>
+            <h3>
+              <a href="{{ post.link }}">{{ post.name }}</a>
+            </h3>
+            <time class="published"
+              datetime="{{ post.post_date|date('Y-m-d') }}">
+              {{ post.post_date|date('j F Y') }}
+            </time>
+          </header>
+          {% if post.thumbnail %}
+            <a href="{{ post.link }}" class="image">
+              <img src="{{ post.thumbnail.src(medium) }}"
+                alt="{{ post.thumbnail._wp_attachment_image_alt }}" />
+            </a>
+          {% endif %}
+        </article>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

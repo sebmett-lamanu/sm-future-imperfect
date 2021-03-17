@@ -1,0 +1,56 @@
+{% extends "base.twig" %}
+
+{% block custom_body_class %}is-single is-post-template
+{% endblock %}
+
+{% block main %}
+
+	{% for post in posts %}
+		<article class="post">
+			<header>
+				<div class="title">
+					<h2>
+						<a href="#">{{ post.title }}</a>
+					</h2>
+					<p>{{ post.meta('_crb_post_subtitle') }}</p>
+				</div>
+				<div class="meta">
+					<time class="published" datetime="2015-11-01">November 1, 2015</time>
+					<a href="#" class="author">
+						<span class="name">Jane Doe</span><img src="{{ theme.path }}/images/avatar.jpg" alt=""/></a>
+				</div>
+			</header>
+			<span class="image featured"><img src="{{ theme.path }}/images/pic01.jpg" alt=""/></span>
+			{{post.content}}
+			<div class="comments" id="comments">
+				<h2>Commentaires</h2>
+				{% for comment in post.comments %}
+					<article class="comment" id="comment-{{ comment.id }}">
+						<h5 class="comment-author">{{ comment.author.name }}
+							a dit</h5>
+						{{ comment.content }}
+					</article>
+				{% endfor %}
+				{{ function('comment_form') }}
+			</div>
+			<footer>
+				<ul class="stats">
+					{% for term in post.terms %}
+						<li>
+							<a href="{{term.link}}">{{term.name}}</a>
+						</li>
+					{% endfor %}
+					<li>
+						<a href="#" class="icon solid fa-heart">28</a>
+					</li>
+					<li>
+						<a href="#" class="icon solid fa-comment">{{ post.comment_count }}</a>
+					</li>
+				</ul>
+			</footer>
+		</article>
+	{% endfor %}
+
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
