@@ -1,0 +1,8 @@
+{
+    "require": {
+        "timber/timber": "^1.18",
+        "htmlburger/carbon-fields": "^3.2",
+        "iamntz/carbon-fields-urlpicker": "v3.x-dev",
+        "htmlburger/carbon-field-number": "^3.0"
+    }
+}
