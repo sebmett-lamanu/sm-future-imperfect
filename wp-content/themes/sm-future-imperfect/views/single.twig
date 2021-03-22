@@ -41,7 +41,7 @@
 						</li>
 					{% endfor %}
 					<li>
-						<a href="#" class="icon solid fa-heart">28</a>
+						<a href="#" data-postid="{{post.id}}" class="icon solid fa-heart fimp_like">{{ post.meta('_crb_post_likes') ? post.meta('_crb_post_likes') : 0 }}</a>
 					</li>
 					<li>
 						<a href="#" class="icon solid fa-comment">{{ post.comment_count }}</a>

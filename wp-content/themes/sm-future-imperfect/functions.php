@@ -68,7 +68,7 @@ function futimp_register_assets()
         'futimp_main',
         get_template_directory_uri() . '/assets/css/main.css',
         [],
-        '1.0'
+        time()
     );
 
     // Fontawesome

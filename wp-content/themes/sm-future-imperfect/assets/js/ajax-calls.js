@@ -78,7 +78,7 @@
         dataType: 'json', // le type de données
         success: function (response) {
           // Pour débuggage
-          //console.log(response)
+          console.log(response)
         },
         error: function (error) {
           console.log(error)
